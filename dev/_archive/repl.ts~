@@ -1,8 +1,16 @@
-import repl, { Repl } from 'node:repl';
+#!/data/data/com.termux/files/usr/bin/env node
+
+
+import repl from 'node:repl';
 import process from 'node:process';
 import net from 'node:net';
 import fs from 'node:fs';
 import { createContext, runInContext } from 'node:vm';
+import { fileURLToPath } from 'node:url';
+import type { REPLServer } from 'node:repl';
+import { Worker, isMainThread, parentPort } from 'node:worker_threads';
+import startMain from "../main";
+
 function isRecoverableError(error) {
     if (error.name === 'SyntaxError') {
         return /^(Unexpected end of input|Unexpected token)/.test(error.message);
@@ -10,10 +18,11 @@ function isRecoverableError(error) {
     return false;
 }
 export default class REPL {
-    repl?: Repl;
+    repl?: REPLServer;
     connections: number = 0;
     context = {};
     myEval(cmd, context, filename, callback) {
+        // #!/data/data/com.termux/files/usr/bin/node
         let result;
         try {
             createContext(this.context);
@@ -147,5 +156,13 @@ export default class REPL {
                 reject(e);
             }
         });
+    }
+}
+
+// Equivalent to `if __name__ == '__main__':`
+if (import.meta.main || process.argv[1] === fileURLToPath(import.meta.url)) {
+    if (isMainThread) {
+        console.log("Running directly from the command line", process.argv);
+        startMain({ repls: [new REPL()] });
     }
 }

@@ -1,0 +1,7 @@
+// hooks.mjs
+export async function resolve(specifier, context, nextResolve) {
+  /* implementation */
+}
+export async function load(url, context, nextLoad) {
+  /* implementation */
+}

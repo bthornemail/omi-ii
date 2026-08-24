@@ -1,0 +1,70 @@
+
+
+Copy
+addRule(selector, styleBlock, index)
+Parameters
+selector
+A string specifying the selector portion of the CSS rule. The default is the string undefined.
+
+styleBlock
+A string indicating the style block to apply to elements matching the selector. The default is the string undefined.
+
+index Optional
+An optional index into the stylesheet's CSSRuleList at which to insert the new rule. If index is not specified, the next index after the last item currently in the list is used (that is, the value of cssStyleSheet.cssRules.length).
+
+Return value
+Always returns -1.
+
+Note that due to somewhat esoteric rules about where you can legally insert rules, it's possible that an exception may be thrown. See insertRule() for more information.
+
+Usage notes
+This method is implemented by browsers by constructing a string using the template literal `${selector}{${styleBlock}}`, then passing it into the standard insertRule() method.
+
+Therefore, given existing code such as the following:
+
+js
+
+Copy
+cssStyleSheet.addRule(selector, styles, 0);
+You can rewrite this to use the more standard insertRule() like this:
+
+js
+
+Copy
+cssStyleSheet.insertRule(`${selector} {${styles}}`, 0)
+
+---
+
+In the following example there is a stylesheet with three rules. Using CSSStyleSheet.cssRules returns a CSSRuleList, which is printed to the console.
+
+The number of rules in the list is printed to the console using CSSRuleList.length. The first CSSRule can be returned by using 0 as the parameter for CSSRuleList.item, in the example this will return the rules set for the body selector.
+
+CSS
+css
+
+Copy
+body {
+  font-family:
+    system-ui,
+    -apple-system,
+    sans-serif;
+  margin: 2em;
+}
+
+.container {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, 200px);
+}
+
+.container > * {
+  background-color: #3740ff;
+  color: white;
+}
+JavaScript
+js
+
+Copy
+let myRules = document.styleSheets[0].cssRules;
+console.log(myRules);
+console.log(myRules.length);
+console.log(myRules[0]);

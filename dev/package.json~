@@ -3,7 +3,7 @@
   "name": "omi-ii",
   "scripts": {
     "start": "src/main.ts",
-      "repl": "src/tools/repl.ts",
+      "repl": "src/repl.ts",
       "r": "dev/repl.ts"
   },
   "devDependencies": {

@@ -3,23 +3,23 @@
     "target": "es2023",
     "module": "esnext",
       "lib": ["ES2023", "DOM" ,"DOM.Iterable","Worker"],
-    "types": ["vite/client"],
-    "allowArbitraryExtensions": true,
-    "skipLibCheck": true,
+      "types": ["vite/client","DOM"],
+      "allowArbitraryExtensions": true,
+      "skipLibCheck": true,
 
-    /* Bundler mode */
-    "moduleResolution": "bundler",
-    "allowImportingTsExtensions": true,
-    "verbatimModuleSyntax": true,
-    "moduleDetection": "force",
-    "noEmit": true,
+      /* Bundler mode */
+      "moduleResolution": "bundler",
+      "allowImportingTsExtensions": true,
+      "verbatimModuleSyntax": true,
+      "moduleDetection": "force",
+      "noEmit": true,
 
-    /* Linting */
-    "noUnusedLocals": true,
-    "noUnusedParameters": true,
-    "erasableSyntaxOnly": true,
-    "noFallthroughCasesInSwitch": true
+      /* Linting */
+      "noUnusedLocals": true,
+      "noUnusedParameters": true,
+      "erasableSyntaxOnly": true,
+      "noFallthroughCasesInSwitch": true
   },
-  "include": ["src"],
-   "exclude": ["src/ruler"]
+    "include": ["src"],
+    "exclude": ["src/ruler"]
 }

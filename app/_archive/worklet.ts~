@@ -1,0 +1,3 @@
+if ('layoutWorklet' in CSS) {
+  console.log('CSS Layout API available!');
+}

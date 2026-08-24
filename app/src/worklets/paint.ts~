@@ -1,0 +1,128 @@
+// import worklet from "./worklet";
+
+document.querySelector<HTMLDivElement>('#app')!.innerHTML = `
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Remote Canvas Stream</title>
+  <style>
+    body {
+      background: #111;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+    }
+    canvas {
+      background: #000;
+      border: 2px solid #333;
+      border-radius: 8px;
+}
+body {
+  font: 1.2em / 1.2 sans-serif;
+}
+li {
+  background-image: paint(boxbg);
+  --box-color: hsl(55 90% 60%);
+}
+
+li:nth-of-type(3n) {
+  --box-color: hsl(155 90% 60%);
+  --width-subtractor: 20;
+}
+
+li:nth-of-type(3n + 1) {
+  --box-color: hsl(255 90% 60%);
+  --width-subtractor: 40;
+}
+  </style>
+</head>
+<body>
+<div id="example"></div>
+  <!-- Your native browser Canvas element -->
+  <canvas id="012ABCDEF01235791113172329" width="400" height="300"></canvas>
+
+<ul>
+  <li>item 1</li>
+  <li>item 2</li>
+  <li>item 3</li>
+  <li>item 4</li>
+  <li>item 5</li>
+  <li>item 6</li>
+  <li>item 7</li>
+  <li>item 8</li>
+  <li>item 9</li>
+  <li>item 10</li>
+  <li>item N</li>
+</ul>
+</body>
+</html>
+`;
+
+var selectedElement = document.getElementById("example");
+
+if (selectedElement.attributeStyleMap) {
+    /* ... */
+} else { alert("novattribute") }
+
+if (selectedElement.computedStyleMap) {
+    /* ... */
+} else { alert("no computrd") }
+if (CSS.registerProperty) {
+    /* ... */
+} else { alert("no register") }
+if ('layoutWorklet' in CSS) {
+    console.log('CSS Layout API available!');
+} else {
+    alert('CSS Layout API (NOT) available!');
+}
+if ('animationWorklet' in CSS) {
+    /* ... */
+} else { alert("no ani") }
+if ("paintWorklet" in CSS) {
+    /* ... */
+} else { alert("no paint") }
+
+if ('paintWorklet' in CSS) {
+
+    CSS.paintWorklet.addModule('mystuff.js');
+    CSS.paintWorklet.addModule(
+	"https://mdn.github.io/houdini-examples/cssPaint/intro/worklets/boxbg.js",
+    );
+} else { alert("no paint module") }
+
+
+// setupCounter(document.querySelector<HTMLButtonElement>('#counter')!)
+registerPaint(
+    "boxbg",
+    class {
+        static get contextOptions() {
+            return { alpha: true };
+        }
+        /*
+          Retrieve any custom properties (or regular properties,
+          such as 'height') defined for the element, and return
+          them as an array.
+        */
+        static get inputProperties() {
+            return ["--box-color", "--width-subtractor"];
+        }
+
+        paint(ctx, size, props) {
+            /*
+              ctx -> drawing context
+              size -> paintSize: width and height
+              props -> properties: get() method
+            */
+            ctx.fillStyle = props.get("--box-color");
+            ctx.fillRect(
+                0,
+                size.height / 3,
+                size.width * 0.4 - props.get("--width-subtractor"),
+                size.height * 0.6,
+            );
+        }
+    },
+);

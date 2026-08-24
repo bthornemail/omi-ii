@@ -1,0 +1,4 @@
+In mathematics and particularly in elementary geometry, a circumgon is a geometric figure which circumscribes some circle, in the sense that it is the union of the outer edges of non-overlapping triangles each of which has a vertex at the center of the circle and opposite side on a line that is tangent to the circle.[1]: p. 855  The limiting case in which part or all of the circumgon is a circular arc is permitted. A circumgonal region is the union of those triangular regions.
+
+
+Every triangle is a circumgonal region because it circumscribes the circle known as the incircle of the triangle. Every square is a circumgonal region. In fact, every regular polygon is a circumgonal region, as is more generally every tangential polygon. But not every polygon is a circumgonal region: for example, a non-square rectangle is not. A circumgonal region need not even be a convex polygon: for example, it could consist of three triangular wedges meeting only at the circle's center

@@ -1,5 +1,5 @@
 import { Worker, isMainThread, parentPort } from 'node:worker_threads';
-import REPL from "./tools/repl";
+rimport REPL from "./tools/repl";
 // import { fileURLToPath } from 'node:url';
 // import process from 'node:process';
 // import type { REPLServer } from 'node:repl';

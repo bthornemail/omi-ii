@@ -3,18 +3,14 @@
     // Visit https://aka.ms/tsconfig to read more about this file
     "compilerOptions": {
 	// File Layout
-	"rootDir": "./src",
-	"outDir": "./dist",
-	//      "lib": [
-	//	  "DOM",         // 👈 This defines HTMLElement, attachShadow, window, etc.
-	//	  "DOM.Iterable" // 👈 This enables looping over DOM elements (like querySelectorAll)
-	//      ],
+"rootDir": "./src",
+"outDir": "./dist",
 	// Environment Settings
 	// See also https://aka.ms/tsconfig/module
 //	"module": "nodenext",
 	"target": "esnext",
 	// For nodejs:
-	"lib": ["esnext","node"],
+	"lib": ["esnext","node","DOM","DOM.Iterable"],
 	"types": ["node"],
 	//      "types": ["DOM","node"],
 	// and npm install -D @types/node
@@ -23,9 +19,9 @@
 	"moduleResolution":"nodenext",
 //    "lib": ["ES2023", "node"],
 	// Other Outputs
-	"sourceMap": true,
-	"declaration": true,
-	"declarationMap": true,
+//	"sourceMap": true,
+//	"declaration": true,
+//	"declarationMap": true,
 
 	// Stricter Typechecking Options
 	"noUncheckedIndexedAccess": true,
@@ -54,7 +50,7 @@
     },
     "exclude":[
 	"_archive/**/*",
-	"app/**/*",
-	"src/ruler/**/*"
+	"hooks/**/*",
+	"_dev-docs/ruler/**/*"
     ]
 }

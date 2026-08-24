@@ -1,0 +1,504 @@
+const meta = document.createElement("meta");
+meta.name = "viewport";
+meta.content = "width=device-width, initial-scale=1";
+document.head.appendChild(meta);
+
+HTMLMeterElement
+
+
+<label for="fuel">Fuel level:</label>
+
+<meter id="fuel" min="0" max="100" low="33" high="66" optimum="80" value="50">
+  at 50/100
+</meter>
+
+<table id="table0">
+  <tbody>
+    <tr>
+      <td>Row 0 Cell 0</td>
+      <td>Row 0 Cell 1</td>
+    </tr>
+  </tbody>
+</table>
+
+const table = document.getElementById("table0");
+const row = table.insertRow(-1);
+
+for (let i = 0; i < 2; i++) {
+  const cell = row.insertCell(-1);
+  const text = `Row ${row.rowIndex} Cell ${i}`;
+  cell.appendChild(document.createTextNode(text));
+}
+
+HTMLTableSectionElement.ch 
+A string containing one single character. This character is the one to align all the cells of a column on. It reflects the char and defaults to the decimal points associated with the language, e.g., '.' for English, or ',' for French. This property was optional and was not very well supported.
+
+HTMLTableSectionElement.chOff 
+A string containing an integer indicating how many characters must be left at the right (for left-to-right scripts; or at the left for right-to-left scripts) of the character defined by HTMLTableRowElement.ch. This property was optional and was not very well supported.
+
+
+Usage notes
+The <colgroup> should appear within a <table>, after any <caption> element (if used), but before any <thead>, <tbody>, <tfoot>, and <tr> elements.
+Only a limited number of CSS properties affect <colgroup>:
+background : The various background properties will set the background for cells within the column group. As the column group background color is painted on top of the table, but behind background colors applied to the columns (<col>), the row groups (<thead>, <tbody>, and <tfoot>), the rows (<tr>), and the individual cells (<th> and <td>), backgrounds applied to table column groups are only visible if every layer painted on top of them has a transparent background.
+border: The various border properties apply, but only if the <table> has border-collapse: collapse set.
+visibility: The value collapse for a column group results in all cells of the columns in that column group not being rendered, and cells spanning into other columns being clipped. The space these columns in the column group would have occupied is removed. However, the size of other columns is still calculated as though the cells in the collapsed column(s) in the column group are present. Other values for visibility have no effect.
+width: The width property defines a minimum width for the columns within the column group, as if min-width were set.
+Example
+See <table> for a complete table example introducing common standards and best practices.
+
+This example demonstrates a seven-column table divided into two <colgroup> elements that span multiple columns.
+
+HTML
+Two <colgroup> elements are used to structure a basic table by creating column groups. The number of columns in each column group is specified by the span attribute.
+
+html
+
+Copy
+Play
+<table>
+  <caption>
+    Personal weekly activities
+  </caption>
+  <colgroup span="5" class="weekdays"></colgroup>
+  <colgroup span="2" class="weekend"></colgroup>
+  <thead>
+    <tr>
+      <th>Mon</th>
+      <th>Tue</th>
+      <th>Wed</th>
+      <th>Thu</th>
+      <th>Fri</th>
+      <th>Sat</th>
+      <th>Sun</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Clean room</td>
+      <td>Football training</td>
+      <td>Dance Course</td>
+      <td>History Class</td>
+      <td>Buy drinks</td>
+      <td>Study hour</td>
+      <td>Free time</td>
+    </tr>
+    <tr>
+      <td>Yoga</td>
+      <td>Chess Club</td>
+      <td>Meet friends</td>
+      <td>Gymnastics</td>
+      <td>Birthday party</td>
+      <td>Fishing trip</td>
+      <td>Free time</td>
+    </tr>
+  </tbody>
+</table>
+
+
+table {
+  border-collapse: collapse;
+  border: 2px solid rgb(140 140 140);
+}
+
+caption {
+  caption-side: bottom;
+  padding: 10px;
+}
+
+th,
+td {
+  border: 1px solid rgb(160 160 160);
+  padding: 8px 6px;
+  text-align: center;
+}
+
+.weekdays {
+  background-color: #d7d9f2;
+}
+
+.weekend {
+  background-color: #ffe8d4;
+}
+
+
+Usage notes
+The <tr> element is valid as a child of a <thead>, <tbody>, or <tfoot> element only.
+If the <tr> is placed as a direct child of its parent <table> element, the <tbody> parent is implied and browsers will add the <tbody> to the markup.
+The implied <tbody> parent is only supported if the <table> otherwise has no child <tbody> elements, and only if the <tr> is included after any <caption>, <colgroup>, and <thead> elements.
+The CSS pseudo-classes :nth-of-type, :first-of-type, and :last-of-type are often useful for selecting the desired set of rows and their data and header cells (<td> and <th> elements).
+When a <tr> is included as a direct child of the <table>, as the browser adds a <tbody> to the markup, CSS selectors such as table > tr may not work as expected or at all.
+Examples
+See <table> for a complete table example introducing common standards and best practices.
+
+Basic row setup
+This example demonstrates a table with four rows and three columns, where the first column contains headers for the row data cells.
+
+HTML
+Four <tr> elements are used to create four table rows. Each row contains three cells - one header cell (<th>) and two data cells (<td>) - creating three columns. The scope attribute set on each header cell specifies which cells they relate to, which in this example is all data cells within the row.
+
+html
+
+Copy
+Play
+<table>
+  <tbody>
+    <tr>
+      <th scope="row">A</th>
+      <td>Alfa</td>
+      <td>AL fah</td>
+    </tr>
+    <tr>
+      <th scope="row">B</th>
+      <td>Bravo</td>
+      <td>BRAH voh</td>
+    </tr>
+    <tr>
+      <th scope="row">C</th>
+      <td>Charlie</td>
+      <td>CHAR lee</td>
+    </tr>
+    <tr>
+      <th scope="row">D</th>
+      <td>Delta</td>
+      <td>DELL tah</td>
+    </tr>
+  </tbody>
+</table>
+CSS
+The CSS :nth-of-type pseudo-class is used to select every odd row and set the background-color of those rows to a slightly darker tone, creating a so-called "zebra stripe" effect. This alternating background makes the rows of data in the table easier to parse and read—imagine having many rows and columns and trying to find some data in a particular row. In addition, the row header cells (<th> elements) are highlighted with a background-color to distinguish them from the data cells (<td> elements).
+
+css
+
+Copy
+Play
+tr:nth-of-type(odd) {
+  background-color: #eeeeee;
+}
+
+tr th[scope="row"] {
+  background-color: #d6ecd4;
+}
+
+HTML
+A <tbody> element is used in this basic table to mark the body section of the table and to include three rows (<tr> elements) with data (<td> elements), creating one column with numbers in descending order.
+
+html
+
+Copy
+Play
+<table>
+  <tbody>
+    <tr>
+      <td>3</td>
+    </tr>
+    <tr>
+      <td>2</td>
+    </tr>
+    <tr>
+      <td>1</td>
+    </tr>
+  </tbody>
+</table>
+JavaScript
+In the JavaScript code below, the created sort() function is attached to the <tbody> element so that it sorts the table cells in order of increasing value and updates the display accordingly.
+
+js
+
+Copy
+Play
+HTMLTableSectionElement.prototype.sort = function (cb) {
+  Array.from(this.rows)
+    .sort(cb)
+    .forEach((e) => this.appendChild(this.removeChild(e)));
+};
+
+document
+  .querySelector("table")
+  .tBodies[0].sort((a, b) => a.textContent.localeCompare(b.textContent));
+  
+  ---
+  
+  const allTables = document.querySelectorAll("table");
+
+for (const table of allTables) {
+  const tBody = table.tBodies[0];
+  const rows = Array.from(tBody.rows);
+  const headerCells = table.tHead.rows[0].cells;
+
+  for (const th of headerCells) {
+    const cellIndex = th.cellIndex;
+
+    th.addEventListener("click", () => {
+      rows.sort((tr1, tr2) => {
+        const tr1Text = tr1.cells[cellIndex].textContent;
+        const tr2Text = tr2.cells[cellIndex].textContent;
+        return tr1Text.localeCompare(tr2Text);
+      });
+
+      tBody.append(...rows);
+    });
+  }
+}
+
+---
+
+let elem1, elem2;
+
+// document.forms is an HTMLCollection
+
+elem1 = document.forms[0];
+elem2 = document.forms.item(0);
+
+alert(elem1 === elem2); // shows: "true"
+
+elem1 = document.forms.myForm;
+elem2 = document.forms.namedItem("myForm");
+
+alert(elem1 === elem2); // shows: "true"
+
+elem1 = document.forms["named.item.with.periods"];
+
+
+The Path2D() constructor returns a newly instantiated Path2D object, optionally with another path as an argument (creates a copy), or optionally with a string consisting of SVG path data.
+
+    
+new Path2D()
+new Path2D(path)
+new Path2D(d)
+
+Examples
+Creating and copying paths
+This example creates and copies a Path2D path. First, path1 is a rectangular path. Then, we copy path1 into path2 and add a circle to it. Finally, we stroke path2, which contains both the rectangle and the circle. Note that path1 remains unchanged, although we never draw it to the canvas. Its only purpose is to show how you can build up a complex path by building on existing paths.
+
+html
+
+Copy
+Play
+<canvas id="my-canvas"></canvas>
+js
+
+Copy
+Play
+const canvas = document.getElementById("my-canvas");
+const ctx = canvas.getContext("2d");
+
+const path1 = new Path2D();
+path1.rect(10, 10, 100, 100);
+
+const path2 = new Path2D(path1);
+path2.moveTo(220, 60);
+path2.arc(170, 60, 50, 0, 2 * Math.PI);
+
+ctx.stroke(path2);
+Play
+
+Using SVG paths
+This example creates a Path2D path using SVG path data. The path will move to point (M10 10) and then move horizontally 80 points to the right (h 80), then 80 points down (v 80), then 80 points to the left (h -80), and then back to the start (Z).
+
+html
+
+Copy
+Play
+<canvas id="my-canvas"></canvas>
+js
+
+Copy
+Play
+const canvas = document.getElementById("my-canvas");
+const ctx = canvas.getContext("2d");
+
+const p = new Path2D("M10 10 h 80 v 80 h -80 Z");
+ctx.fill(p);
+Play
+
+Specification
+
+<object data="my-pdf.pdf" type="application/pdf" width="800" height="1200">
+  <p>
+    You don't have a PDF plugin, but you can
+    <a href="my-pdf.pdf">download the PDF file. </a>
+  </p>
+</object>
+
+Responsive <iframe> sizing
+For security and privacy reasons, <iframe> elements do not by default expose any information to the parent document about the size of the content in the document they are embedding.
+
+To enable responsive sizing of <iframe> elements based on their content, the <meta name="responsive-embedded-sizing"> tag can be included in an embedded document to opt it in to sharing its size information with the parent document. The frame-sizing CSS property can then be set on the <iframe> to cause it to adopt the same horizontal or vertical size as the embedded document's actual content size. This ensures that <iframe> content fits seamlessly into its embedder, avoiding unnecessary scrollbars.
+
+To resize the <iframe> dynamically as the embedded document changes layout size, you can call the Window.requestResize() method from the embedded document to make it report an updated size
+
+<svg
+  viewBox="0 0 400 400"
+  xmlns="http://www.w3.org/2000/svg"
+  height="60vmin"
+  width="60vmin">
+  <rect x="0" y="0" width="50%" height="50%" fill="tomato" opacity="0.75" />
+  <rect
+    x="25%"
+    y="25%"
+    width="50%"
+    height="50%"
+    fill="slategrey"
+    opacity="0.75" />
+  <rect x="50%" y="50%" width="50%" height="50%" fill="olive" opacity="0.75" />
+  <rect
+    x="0"
+    y="0"
+    width="100%"
+    height="100%"
+    stroke="cadetblue"
+    stroke-width="0.5%"
+    fill="none" />
+</svg>
+
+<svg viewBox="0 0 10 10" xmlns="http://www.w3.org/2000/svg">
+  <!-- Some graphical objects to use -->
+  <defs>
+    <circle id="myCircle" cx="0" cy="0" r="5" />
+
+    <linearGradient id="myGradient" gradientTransform="rotate(90)">
+      <stop offset="20%" stop-color="gold" />
+      <stop offset="90%" stop-color="red" />
+    </linearGradient>
+  </defs>
+
+  <!-- using my graphical objects -->
+  <use x="5" y="5" href="#myCircle" fill="url('#myGradient')" />
+</svg>
+
+<svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+  <!-- Using g to inherit presentation attributes -->
+  <g fill="white" stroke="green" stroke-width="5">
+    <circle cx="40" cy="40" r="25" />
+    <circle cx="60" cy="60" r="25" />
+  </g>
+</svg>
+
+<svg viewBox="0 0 80 20" xmlns="http://www.w3.org/2000/svg">
+  <!-- Our symbol in its own coordinate system -->
+  <symbol id="myDot" width="10" height="10" viewBox="0 0 2 2">
+    <circle cx="1" cy="1" r="1" />
+  </symbol>
+
+  <!-- A grid to materialize our symbol positioning -->
+  <path
+    d="M0,10 h80 M10,0 v20 M25,0 v20 M40,0 v20 M55,0 v20 M70,0 v20"
+    fill="none"
+    stroke="pink" />
+
+  <!-- All instances of our symbol -->
+  <use href="#myDot" x="5" y="5" opacity="1.0" />
+  <use href="#myDot" x="20" y="5" opacity="0.8" />
+  <use href="#myDot" x="35" y="5" opacity="0.6" />
+  <use href="#myDot" x="50" y="5" opacity="0.4" />
+  <use href="#myDot" x="65" y="5" opacity="0.2" />
+</svg>
+
+<svg>
+  <use href="../assets/my-svg.svg#my-fragment"></use>
+</svg>
+
+HTMLObjectElement
+TextMetrics
+
+<svg viewBox="0 0 300 100" width="300" height="100"
+      xmlns="http://www.w3.org/2000/svg">
+
+  <view id="one" viewBox="0 0 100 100" />
+  <circle cx="50" cy="50" r="40" fill="red" />
+
+  <view id="two" viewBox="100 0 100 100" />
+  <circle cx="150" cy="50" r="40" fill="green" />
+
+  <view id="three" viewBox="200 0 100 100" />
+  <circle cx="250" cy="50" r="40" fill="blue" />
+</svg>
+<img src="example.svg" alt="three circles" width="300" height="100" />
+<br />
+<img src="example.svg#three" alt="blue circle" width="100" height="100" />
+
+
+.container {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+  grid-auto-rows: minmax(50px, auto);
+  gap: 20px;
+}
+
+.container {
+  display: grid;
+  grid-template-areas:
+    "header header"
+    "sidebar content"
+    "footer footer";
+  grid-template-columns: 1fr 3fr;
+  gap: 20px;
+}
+header {
+  grid-area: header;
+}
+main {
+  grid-area: content;
+}
+aside {
+  grid-area: sidebar;
+}
+footer {
+  grid-area: footer;
+}
+
+
+writing-mode
+Writing modes are more than just left to right and right to left text, and the writing-mode property helps us display text running in other directions. The writing-mode property can have values of:
+
+horizontal-tb
+vertical-rl
+vertical-lr
+sideways-rl
+sideways-lr
+The value horizontal-tb, which stands for "horizontal, top to bottom", is the default for text on the web. It is the direction in which you are reading this guide. The other values change how text flows in our document, matching the diff
+
+Logical values for alignment
+With the block and inline axis able to change direction, the logical values for the alignment properties start to make more sense.
+
+In this example, we use alignment (the align-self and justify-self properties) to align items inside a grid that is set to writing-mode: vertical-lr. The start and end properties work in exactly the same way that they do in the default writing mode, and remain logical in a way that using left and right, top and bottom to align items would not do. This occurs once we've flipped the grid onto the side, like this:
+
+
+In this example we create a new range with the Range() constructor, and set its beginning and end positions using the Range.setStartBefore() and Range.setEndAfter() methods. We then select the range using window.getSelection() and Selection.addRange().
+
+HTML
+html
+
+Copy
+Play
+<p>First paragraph.</p>
+<p>Second paragraph.</p>
+<p>Third paragraph.</p>
+<p>Fourth paragraph.</p>
+JavaScript
+js
+
+Copy
+Play
+const paragraphs = document.querySelectorAll("p");
+
+// Create new range
+const range = new Range();
+
+// Start range at second paragraph
+range.setStartBefore(paragraphs[1]);
+
+// End range at third paragraph
+range.setEndAfter(paragraphs[2]);
+
+// Get window selection
+const selection = window.getSelection();
+
+// Add range to window selection
+selection.addRange(range);
+
+const range = document.createRange();
+
+range.setStart(startNode, startOffset);
+range.setEnd(endNode, endOffset);
