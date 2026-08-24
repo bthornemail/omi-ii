@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Remote Canvas Stream</title>
+  <style>
+    body {
+      background: #111;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+    }
+    canvas {
+      background: #000;
+      border: 2px solid #333;
+      border-radius: 8px;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Your native browser Canvas element -->
+  <canvas id="remoteCanvas" width="400" height="300"></canvas>
+
+  <script>
+    const canvas = document.getElementById('remoteCanvas');
+    const ctx = canvas.getContext('2d');
+
+    // Connect to your Termux Node.js server
+    const ws = new WebSocket('ws://localhost:8080');
+
+    ws.onopen = () => {
+      console.log('Connected to server stream!');
+    };
+
+    ws.onmessage = (event) => {
+      const command = JSON.parse(event.data);
+
+      if (command.type === 'DRAW_BALL') {
+        const { x, y, radius, color } = command.payload;
+
+        // Clear the canvas element frame before redrawing
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+        // Draw the shape sent from the terminal environment
+        ctx.fillStyle = color;
+        ctx.beginPath();
+        ctx.arc(x, y, radius, 0, Math.PI * 2);
+        ctx.fill();
+      }
+    };
+ws.onmessage = (event) => {
+      // event.data contains the raw text string, e.g., "145,210"
+      const rawText = event.data;
+      
+      // Split the string by the comma delimiter and convert to integers
+      const parts = rawText.split(',');
+      const x = parseInt(parts[0], 10);
+      const y = parseInt(parts[1], 10);
+
+      // Clear and draw using the raw coordinates
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      ctx.fillStyle = '#ff3366';
+      ctx.beginPath();
+      ctx.arc(x, y, 15, 0, Math.PI * 2);
+      ctx.fill();
+    };
+    ws.onclose = () => {
+      console.log('Disconnected from server stream.');
+    };
+  </script>
+</body>
+</html>
+x

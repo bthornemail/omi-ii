@@ -1,0 +1,113 @@
+#+name: make-dot
+#+BEGIN_SRC emacs-lisp :var table=dot-eg-table shape="box" :results output
+  (mapcar #'(lambda (x)
+              (princ (format "%s [label =\"%s\", shape = \"%s\"];\n"
+                             (cl-first x) (cl-second x) shape))) table)
+              (princ (format "%s -- %s;\n" (cl-first (cl-first table)) (cl-first (cl-second table))))
+#+END_SRC
+
+#+RESULTS: make-dot
+: a [label ="Hello", shape = "box"];
+: b [label ="World!", shape = "box"];
+: a -- b;
+
+#+name: write-dot
+#+BEGIN_SRC dot :file images/test-dot.png :var input=make-dot
+graph {
+ $input
+}
+#+END_SRC
+
+#+RESULTS: write-dot
+[[file:images/test-dot.png]]
+
+#+name: write-dot-cmdline
+#+BEGIN_SRC dot :file images/test-dot-cmdline.png :var input=make-dot :cmdline -Tpng -Nfontcolor=red
+graph {
+ $input
+}
+#+END_SRC
+
+#+RESULTS: write-dot-cmdline
+[[file:images/test-dot-cmdline.png]]
+
+#+name: dot-eg-table
+| node | label  |
+|------+--------|
+| a    | Hello  |
+| b    | World! |
+
+#+BEGIN_SRC emacs-lisp
+  ( () a b)
+#+END_SRC
+
+
+
+#+name:prime
+#+BEGIN_SRC js
+import vm from 'node:vm';
+
+const tetrahedron = new Uint8Array([422,423,424,425]);
+
+
+const omi = new SharedArrayBuffer(1024);
+const imo = new Uint8Array(omi);
+
+function infinite(inmo) {
+    const imo = new Uint8Array(omi);
+    console.log("Starting",imo);
+    while (Atomics.compareExchange(imo, 0,1,17)) {
+	console.log("Loading",Atomics.load(imo,0));	
+    }
+    while (Atomics.xor(imo, 0, 1)) {
+	Atomics.xor(imo, 0, 1);
+    } 
+    while (imo.length ^ 19) {
+	Atomics.xor(imo, 0, 1)
+    } 
+    while (imo.length ^ 19) {
+	Atomics.xor(imo, 0, 1)
+    }
+//    Atomics.xor(imo, 0, 999);
+}
+infinite();
+setInterval(()=>console.log(
+    'index '
+),1000);
+
+#+END_SRC*
+ // 17
+
+Atomics.and(ta, 0, 1); // 17
+Atomics.load(ta, 0); // 1
+
+Atomics.compareExchange(ta, 0, 5, 12); // 1
+Atomics.load(ta, 0); // 1
+
+Atomics.exchange(ta, 0, 12); // 1
+Atomics.load(ta, 0); // 12
+
+Atomics.isLockFree(1); // true
+Atomics.isLockFree(2); // true
+Atomics.isLockFree(3); // false
+Atomics.isLockFree(4); // true
+
+Atomics.or(ta, 0, 1); // 12
+Atomics.load(ta, 0); // 13
+
+Atomics.store(ta, 0, 12); // 12
+
+Atomics.sub(ta, 0, 2); // 12
+Atomics.load(ta, 0); // 10
+
+Atomics.xor(ta, 0, 1); // 10
+Atomics.load(ta, 0); // 11
+*/
+/* ===   ===  0x80 ^ 0x002055788087AA ^ (1234567891 ** 64 ** 256)
+0
+    > let stdIn = 1;
+let index = 0;
+const global = 60 ** 2 + 16 * 16 + 2 * 2;
+const remote = 0x80;
+const step = 16;
+*/

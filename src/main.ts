@@ -1,0 +1,43 @@
+import { Worker, isMainThread, parentPort } from 'node:worker_threads';
+import REPL from "./repl";
+
+if (!isMainThread) {
+    const log = [];
+    // When a message from the parent thread is received, send it back:
+    parentPort.once('message', (message) => {
+        log.push(message)
+        parentPort.postMessage(log);
+    });
+    //    parentPort.on('serve',()=>{
+    //   });
+    (() => {
+
+        let rum = "Check odd factors up to the square root of the number";
+        let sum = Buffer.from(rum).reduce((accum, val) => { return accum + val }, 0);
+        let num = Buffer.from(rum).reduce((accum, val) => { return accum ^ val }, 0);
+        let wum = Buffer.alloc(11, 'aGVsbG8gd29ybGQ=', 'base64').reduce((accum, val) => { return accum ^ val }, 0);
+        let _Bind = {}
+        // Check odd factors up to the square root of the number
+        const squareRoot = Math.sqrt(sum);
+        for (let i = 3; i <= squareRoot; i += 2) {
+            let word = "word" + i.toString();
+            if (num % i === 0) {
+                _Bind[_Bind[word] = num] = word;
+            }
+            word = Date.UTC(num % i, num / i, 0, 0, 0, squareRoot)// Buffer.from(sum).\
+            //	toString('base64')
+            _Bind[_Bind[word] = num] = word;
+        }
+
+        console.log(_Bind);
+    })();
+
+} else {
+    const worker = new Worker(new URL(import.meta.url));
+    const Repl = new REPL();
+    Repl.init();
+    worker.once('message', (message) => {
+        console.log(message);  // Prints 'Hello, world!'.
+    });
+    worker.postMessage('Hello, world!');
+}

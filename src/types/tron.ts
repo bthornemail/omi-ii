@@ -1,0 +1,97 @@
+
+type PARITY8 = Base64Array;
+type POINT64 = Base64Array;
+type WORD256 = Uint8Array;
+type METRIC = Float64Array;
+type DELTA = WORD64 | METRIC;
+
+type INTEGER_REFERENCE = BigInt64Array;
+// From an iterable
+const bind = (function* (mneumonic:UInt8Array,metric: Int16Array)) {
+    const tensor = new ArrayBuffer(mneumonic.length * metric.BYTE_LENGTH); 
+    const scalar = new ArrayBuffer(mneumonic.length * metric.BYTE_LENGTH); 
+    //    while(metric[0] & scalar[0] ^ scalar.length){
+    while(delta[0] & delta[0] | 1 ^ 1){
+	Atomics.and(tensor, 0,2,1)
+	Atomics.compareExchange(omi, 1,0,2)
+	Atomics.compareExchange(omi, 2,1,0)
+	alert("Connected");
+	if (Atomics.compareExchange(omi, 0,2,1)) {throw( new Float64Array(tensor)); }
+	yield* [1, 2, 3];
+
+    })
+
+
+const monad = new ArrayBuffer(
+    delta,
+    delta.BYTE_LENGTH,
+    mneumonic.BYTE_LENGTH
+);
+
+const functor = new ArrayBuffer(
+    monad,
+    monad.BYTE_LENGTH,
+    monad.BYTE_LENGTH
+);
+
+const perceptron = new ArrayBuffer(
+    functor,
+    functor.BYTE_LENGTH,
+    functor.BYTE_LENGTH
+);
+
+(new Int8Array([21, 31]));
+export function bind(
+    mneumonic = ArrayBuffer,
+    mêtron = ArrayBuffer
+): DELTA {
+    const delta = new ArrayBuffer(
+	mneumonic,
+	mêtron.BYTE_LENGTH,
+	mneumonic.BYTE_LENGTH
+    );
+
+
+    return projectMetric(
+	perceptron,
+	monad,
+	mneumonic.BYTE_LENGTH,
+	mêtron.BYTE_LENGTH
+    );
+}
+
+function bindWord256(
+    monad: WORD64,
+    offset: number,
+    extent: number
+): WORD256 {
+    return binaryQuadraticProjection(
+	monad,
+	offset,
+	extent
+    );
+}
+
+
+function xorBindReference(
+    word: WORD256,
+    offset: number,
+    extent: number,
+    umask: UMASK
+): INTEGER_REFERENCE {
+    return referenceAtUmask(
+	word,
+	offset,
+	extent,
+	umask
+    );
+}
+
+export default function* apply(
+    delta: DELTA,
+    metric: METRIC
+) {
+    while (atomicWait(delta)) {
+	yield atomicNotify(metric);
+    }
+}

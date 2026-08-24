@@ -1,0 +1,36 @@
+import './style.css'
+import typescriptLogo from './assets/typescript.svg'
+import viteLogo from './assets/vite.svg'
+import heroImg from './assets/hero.png'
+import { initalize } from './init.ts'
+
+document.querySelector<HTMLDivElement>('#app')!.innerHTML = `
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Remote Canvas Stream</title>
+  <style>
+    body {
+      background: #111;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+    }
+    canvas {
+      background: #000;
+      border: 2px solid #333;
+      border-radius: 8px;
+    }
+  </style>
+</head>
+<body>
+  <!-- Your native browser Canvas element -->
+  <canvas id="012ABCDEF01235791113172329" width="400" height="300"></canvas>
+</body>
+</html>
+` 
+
+setupCounter(document.querySelector<HTMLButtonElement>('#counter')!)

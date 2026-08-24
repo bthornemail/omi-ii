@@ -1,0 +1,14 @@
+import type { Blob } from "node:buffer";
+export type POSTULATE = string[];
+export type AXIOM = string;
+export type DEFINITION = [string[],string[],string[],string[]];
+export type DECLARATION = [string[],string[],string[],string[]];
+export type PRINCIPLE = number;
+export type IDEAL = [PRINCIPLE,POSTULATE[]];
+export type METRIC = [PRINCIPLE,PRINCIPLE[]];
+export type MNEUMONIC = [POSTULATES,PRINCIPLE[]];
+export type BOUNDRY = [IDEAL,[number,number],[number,number]];
+export type CONSTRAINT = [IDEAL,[number,number,number,number]];
+export type POSE = Blob[];
+type Arr = readonly any[];
+export type BLOCK<V extends Arr, B extends Arr,K extends Arr, LAMBDA extends Arr> = [IDEAL: V,CONSTRAINT: B,METRON:R,MNEUMONIC:K,BOUNDRY: LAMBDA]

@@ -1,0 +1,279 @@
+// Continuous polling
+const pollLoop = () => {
+    const interval = setInterval(() => {
+        const client = new net.Socket();
+        
+        client.connect(8080, 'localhost', () => {
+            client.write('poll');
+        });
+        
+        client.on('data', (data) => {
+            const state = JSON.parse(data.toString());
+            console.log('State:', state);
+            client.destroy();
+        });
+        
+        client.on('error', (err) => {
+            console.error('Polling error:', err.message);
+        });
+    }, 1000); // Poll every second
+    
+    return () => clearInterval(interval);
+};
+
+// Start polling
+const stop = pollLoop();
+// Create a 32MB "file" and fill it with consecutive values from 0 to 255 – 32MB = 1024 * 1024 * 32
+const uInt8Array = new Uint8Array(1024 * 1024 * 32).map((v, i) => i);
+worker.postMessage(uInt8Array.buffer, [uInt8Array.buffer]);
+// Stop after 10 seconds
+setTimeout(stop, 10000);
+export function bind(element: HTMLButtonElement) {
+    const imo = new ArrayBuffer(60 * 16 * 4);
+    const omi = new Uint8Array(imo);
+    const metron = (metric: Uint8Array,meta: number)=>{
+	Atomics.compareExchange(omi, 0,2,1),
+	Atomics.compareExchange(omi, 1,0,2)
+	Atomics.compareExchange(omi, 2,1,0)
+	if (Atomics.compareExchange(omi, 0,2,1)) throw new Float64Array(tensor); 
+	return apply(tensor: SharedArrayBuffer){
+	    const delta = new Int16Array(tensor);
+	    const omi = new Int16Array(imo,tensor.ByteLength);
+	    const projection = meta ^
+		Atomics.compareExchange(delta, 0,4,2) ^
+		Atomics.compareExchange(delta, 2,6,4) ^
+		Atomics.compareExchange(delta, 4,8,6) ^
+		Atomics.compareExchange(delta, 6,0,8) ^
+		Atomics.compareExchange(delta, 8,2,0) ^
+		Atomics.compareExchange(omi, 1,5,3) ^
+		Atomics.compareExchange(omi, 3,7,5) ^ 
+		Atomics.compareExchange(omi, 5,9,7) ^
+		Atomics.compareExchange(omi, 7,1,9) ^
+		Atomics.compareExchange(omi, 9,3,1)
+	    function fn2workerURL(fn) {
+  const blob = new Blob([`(${fn.toString()})()`], { type: "text/javascript" });
+  return URL.createObjectURL(blob);
+}2
+	    return new Float64Array(
+		tensor,
+		Atomics.compareExchange(delta,17,17,projection),
+		Atomics.compareExchange(omi,17,19,projection)
+	    );
+	}
+    };
+    const coordinate = (metric: number[], tensor: Uint8Array = imo)=>{
+	const view = new DataView(metron(metric), delta(tensor));
+	;
+	element.innerHTML = `Coordinate is ${view.getUInt8(1)}\nPath is ${view.getInt16(1)}`
+    }
+    const applyDelta = (delta: number[]) => {
+	
+	console.log("Applying Delta ",metron(delta).toString(16));
+	Atomics.compareExchange(omi, 2,6,4)
+	Atomics.compareExchange(omi, 4,8,6)
+	Atomics.compareExchange(omi, 8,1,0)
+	
+	Atomics.compareExchange(omi, 1,5,3)
+	Atomics.compareExchange(omi, 3,7,5)
+	Atomics.compareExchange(omi, 5,9,7)
+	Atomics.compareExchange(omi, 7,1,9)
+	Atomics.compareExchange(omi, 9,3,1)
+	return new Float64Array(
+	    delta,
+	    Atomics.compareExchange(omi,17,17,0),
+	    Atomics.compareExchange(omi,17,19,60)
+	);
+    }
+    // Size = 60 (Omimeter)
+// Length = 16 (Window)
+
+// The pair is (60, 16)
+const pair = (size: number, length: number): bigint => {
+    return (BigInt(size) << 32n) | BigInt(length);
+};
+    // Everything is triples rolling to the delta
+const completeRoll = (omi: Uint8Array) => {
+    let result = 0n;
+    
+    // Triple 1: Lifecycle
+    result ^= Atomics.compareExchange(omi, 0, 2n, 1n);
+    result ^= Atomics.compareExchange(omi, 1, 0n, 2n);
+    result ^= Atomics.compareExchange(omi, 2, 1n, 0n);
+    
+    // Triple 2: Constraints
+    result ^= Atomics.compareExchange(omi, 3, 7n, 5n);
+    result ^= Atomics.compareExchange(omi, 5, 9n, 7n);
+    result ^= Atomics.compareExchange(omi, 7, 3n, 9n);
+    
+    // Triple 3: Constraints
+    result ^= Atomics.compareExchange(omi, 9, 5n, 3n);
+    result ^= Atomics.compareExchange(omi, 4, 8n, 6n);
+    result ^= Atomics.compareExchange(omi, 6, 4n, 8n);
+    
+    // Triple 4: Even Roll
+    result ^= Atomics.compareExchange(omi, 8, 6n, 4n);
+    result ^= Atomics.compareExchange(omi, 17, 17n, 0n);
+    result ^= Atomics.compareExchange(omi, 17, 19n, 60n);
+    
+    return result; // The delta
+};
+
+// Unpack the pair
+const unpack = (pair: bigint) => {
+    const size = Number(pair >> 32n);
+    const length = Number(pair & 0xFFFFFFFFn);
+    return { size, length };
+};
+    const tetrahedron = new FLoat64Array([422,423,424,425]);
+    function infinite(inmo) {
+	while (Atomics.compareExchange(imo, 0,1,17)) {
+	    console.log("Loading",Atomics.load(imo,0));	
+	}
+	while (Atomics.xor(imo, 0, 1)) {
+	    Atomics.xor(imo, 0, 1);
+	} 
+	while (imo.length ^ 17) {
+	    Atomics.xor(imo, 0, 1)
+	} 
+	while (imo.length ^ 19) {
+	    Atomics.xor(imo, 0, 1)
+	}
+	
+    }
+  // Exact arithmetic mean with BigInt
+const sum = values.reduce((a, b) => a + b, 0n);
+const mean = sum / BigInt(values.length); // Integer division
+
+// Exact root mean square (squared mean)
+const squares = values.map(x => x * x);
+const sumSquares = squares.reduce((a, b) => a + b, 0n);
+const rms = sqrt(sumSquares / BigInt(values.length)); // Need sqrt  
+    element.addEventListener('click', () => coordinate(counter + 1))
+    coordinate(0);
+    // ============================================================
+// THE COMPLETE CODE STRUCTURE
+// ============================================================
+
+// 1. Buffer
+const buffer = new SharedArrayBuffer(32);
+const omi = new Uint8Array(buffer);
+
+// 2. Wave (the order of rolling)
+const wave = [
+    // Lifecycle
+    { i: 0, e: 2, n: 1 },
+    { i: 1, e: 0, n: 2 },
+    { i: 2, e: 1, n: 0 },
+    // Constraints
+    { i: 1, e: 5, n: 3 },
+    { i: 3, e: 7, n: 5 },
+    { i: 5, e: 9, n: 7 },
+    { i: 7, e: 1, n: 9 },
+    { i: 9, e: 3, n: 1 },
+    // Even roll
+    { i: 0, e: 4, n: 2 },
+    { i: 2, e: 6, n: 4 },
+    { i: 4, e: 8, n: 6 },
+    { i: 6, e: 0, n: 8 },
+    { i: 8, e: 2, n: 0 },
+    // Boundaries
+    { i: 17, e: 17, n: 0 },
+    { i: 17, e: 19, n: 60 },
+];
+
+// 3. Roll function
+const roll = () => wave.reduce((p, { i, e, n }) => p ^ Atomics.compareExchange(omi, i, e, n), 0);
+
+// 4. Stream
+async function* stream() {
+    while (true) yield roll();
+}
+
+// 5. Use it
+const gen = stream();
+for await (const state of gen) {
+    console.log(state);
+}
+    // The stellated tetrahedron circumscription
+const stellatedTetrahedron = {
+    // Base tetrahedron (always visible)
+    base: [5, 7, 11, 13],
+    
+    // Stellation points (boundary)
+    stellation: [17, 19],
+    
+    // Circumsphere
+    circumsphere: {
+        center: 13,  // bridge prime
+        radius: 6,   // hexagon
+        vertices: [5, 7, 11, 13, 17, 19]
+    },
+    
+    // 6 degrees of freedom
+    degrees: {
+        v1: 5,   // vertex 1
+        v2: 7,   // vertex 2
+        v3: 11,  // vertex 3
+        v4: 13,  // vertex 4 (center)
+        v5: 17,  // stellation 1
+        v6: 19   // stellation 2
+    }
+};
+    // Isolating the invariant groups
+function* invariantGroups(shared: Uint8Array) {
+    const stable = [5, 7, 11, 13];
+    const boundary = [17, 19];
+    const reflections = [0, 1, 2, 3, 4, 6, 8, 9, 10, 12, 14, 15, 16, 18, 20];
+    
+    while (true) {
+        const state = Atomics.load(shared, 0);
+        
+        if (stable.includes(state)) {
+            yield { group: 'stable', value: state };
+        } else if (boundary.includes(state)) {
+            yield { group: 'boundary', value: state };
+        } else {
+            yield { group: 'reflection', value: state };
+        }
+        
+        Atomics.store(shared, 0, (state + 1) % 20);
+    }
+}
+    Yes I think you just showed 17 and 19 are most primal and 337 ,373,733 and the 119, 919 , 911 are some of most extraordinary also with the 422,423,424,425 seem like the inverse Tetrahedron that roots this all for the {3,3,,,3,4}:{4,3,,,3,3} of the 773,737,337 and the no wait 1! =  0x1 ^ {1:8}:{2:5}{3:4} ^ {9:7} ^ 0x11
+([O,,,A],[a,,,o])
+/*
+Atomics.and(ta, 0, 1); // 17
+Atomics.load(ta, 0); // 1
+
+Atomics.compareExchange(ta, 0, 5, 12); // 1
+Atomics.load(ta, 0); // 1
+
+Atomics.exchange(ta, 0, 12); // 1
+Atomics.load(ta, 0); // 12
+
+Atomics.isLockFree(1); // true
+Atomics.isLockFree(2); // true
+Atomics.isLockFree(3); // false
+Atomics.isLockFree(4); // true
+
+Atomics.or(ta, 0, 1); // 12
+Atomics.load(ta, 0); // 13
+
+Atomics.store(ta, 0, 12); // 12
+
+Atomics.sub(ta, 0, 2); // 12
+Atomics.load(ta, 0); // 10
+
+Atomics.xor(ta, 0, 1); // 10
+Atomics.load(ta, 0); // 11
+*/
+/* ===   ===  0x80 ^ 0x002055788087AA ^ (1234567891 ** 64 ** 256)
+0
+    > let stdIn = 1;
+let index = 0;
+const global = 60 ** 2 + 16 * 16 + 2 * 2;
+const remote = 0x80;
+const step = 16;
+*/
+
+}

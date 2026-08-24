@@ -1,0 +1,27 @@
+import { createContext, runInContext,Script,compileFunction } from 'node:vm';
+
+function * apply(code:string = "return a+b+c;",context = {c:3},callback:(params: any[])=>void = (params:any[])=>{console.log(...params)}){
+    createContext(context);
+    const fn = compileFunction(code,["a","b"], {
+	filename: "add",
+	parsingContext: context
+    });
+    console.log(`fn: [${fn.toString()}]`);
+    yield fn;
+    const fn2 = compileFunction(code,["a","b","c"],{
+//	cachedData: fn.cachedData,
+	parsingContext: context
+    });
+    console.log(`fn2: [${fn2.toString()}]`);
+    yield fn2;
+    return;
+};
+
+/*(()=>{
+    const g = apply()
+    let count = 0;
+    for (const b of g) {
+	console.log(count++,b(count * 2,count * 4,200));
+    }
+})();
+*/

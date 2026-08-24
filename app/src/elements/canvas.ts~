@@ -1,0 +1,47 @@
+import './style.css'
+import typescriptLogo from './assets/typescript.svg'
+import viteLogo from './assets/vite.svg'
+import heroImg from './assets/hero.png'
+import { setupCounter } from './counter.ts'
+
+document.querySelector<HTMLDivElement>('#app')!.innerHTML = `
+<canvas id="geometryCanvas" width="500" height="500"></canvas>
+
+<script>
+  const canvas = document.getElementById('geometryCanvas');
+  const ctx = canvas.getContext('2d');
+  
+  // Track globally using the unified interface configuration
+  let globalTransform = new DOMMatrix();
+
+  const ws = new WebSocket('ws://localhost:8080');
+  
+  ws.onmessage = (event) => {
+    const [header, rawData] = event.data.split(':');
+    
+    if (header === 'MATRIX') {
+      // Rehydrate the raw text directly into a modern universal matrix instance
+      const floatValues = rawData.split(',').map(Number);
+      globalTransform = new DOMMatrix(floatValues);
+      
+    } else if (header === 'DRAW_POINT') {
+      const [rawX, rawY] = rawData.split(',').map(Number);
+      
+      // Define a localized point structure natively
+      const structuralPoint = new DOMPoint(rawX, rawY);
+      
+      // Perform the exact transformation calculations instantly across contexts
+      const targetPoint = structuralPoint.matrixTransform(globalTransform);
+      
+      // Render inside your standard Canvas frame 
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      ctx.fillStyle = '#00ffcc';
+      ctx.beginPath();
+      ctx.arc(targetPoint.x, targetPoint.y, 10, 0, Math.PI * 2);
+      ctx.fill();
+    }
+  };
+</script>
+`
+
+setupCounter(document.querySelector<HTMLButtonElement>('#counter')!)

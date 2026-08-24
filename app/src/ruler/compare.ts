@@ -1,0 +1,58 @@
+const opening = [0,2,1]
+const stable = [5, 7, 11, 13];
+const boundary = [17, 19];
+const reflections = [0, 1, 2, 3, 4, 6, 8, 9, 10, 12, 14, 15, 16, 18, 20];
+[[[
+   [337 ,373,733]
+]],
+[[[[[[[[
+    [119, 919 ,911]
+]]]]]]]],
+[[[
+    [422,423,424,425]
+]]],
+[[[[[[
+    [773,737,337]
+]]]]]]
+    0x1 ^ {1:8}:{2:5}{3:4} ^ {9:7} ^ 0x11
+    ([O,,,A],[a,,,o])
+    const size = Number(pair >> 32n);
+    const length = Number(pair & 0xFFFFFFFFn);
+    return { size, length };
+
+ export default function* compare(v1,v2,v3,v4) {
+     Atomics.compareExchange(omi, 0,2,1),
+     Atomics.compareExchange(omi, 1,0,2)
+     Atomics.compareExchange(omi, 2,1,0)
+     if (Atomics.compareExchange(omi, 0,2,1)) throw new Float64Array(tensor); 
+	 const delta = new Int16Array(tensor);
+	 const omi = new Int16Array(imo,tensor.ByteLength);
+	 const projection = meta ^
+	     Atomics.compareExchange(delta, 0,4,2) ^
+	     Atomics.compareExchange(delta, 2,6,4) ^
+	     Atomics.compareExchange(delta, 4,8,6) ^
+	     Atomics.compareExchange(delta, 6,0,8) ^
+	     Atomics.compareExchange(delta, 8,2,0) ^
+	     Atomics.compareExchange(omi, 1,5,3) ^
+	     Atomics.compareExchange(omi, 3,7,5) ^ 
+	     Atomics.compareExchange(omi, 5,9,7) ^
+	     Atomics.compareExchange(omi, 7,1,9) ^
+	     Atomics.compareExchange(omi, 9,3,1)
+
+    while (Atomics.compareExchange) {
+        const state = Atomics.load(shared, 0);
+        
+        if (stable.includes(state)) {
+            yield { group: 'stable', value: state };
+        } else if (boundary.includes(state)) {
+            yield { group: 'boundary', value: state };
+        } else {
+            yield ^,
+	     Atomics.compareExchange(delta,17,17,projection) ^
+	     Atomics.compareExchange(omi,17,19,projection)
+
+        }
+        
+        Atomics.store(shared, 0, (state + 1) % 20);
+    }
+}
