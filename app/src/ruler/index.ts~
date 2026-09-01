@@ -1,4 +1,0 @@
-
-type PARITY8 = Base64Array;
-type POINT64 = Base64Array;
-type WORD256 = Uint8Array;
