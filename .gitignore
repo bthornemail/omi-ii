@@ -1,5 +1,4 @@
 # Logs
-
 logs
 *.log
 npm-debug.log*
@@ -23,3 +22,24 @@ dist-ssr
 *.njsproj
 *.sln
 *.sw?
+
+# === Emacs Backup and Recovery Files ===
+*~              # Backup files (e.g., filename.txt~)
+\#*\#           # Auto-save files (e.g., #filename.txt#)
+.\#*            # Lock files / Interlocking symlinks (e.g., .#filename.txt)
+# Safely remove files from tracking without deleting them from your hard drive
+# git rm --cached *~
+# git rm --cached \#*\#
+
+# === Compiled Code and Local Environment ===
+*.elc           # Byte-compiled Lisp files
+/auto-save-list # Auto-save tracking directory
+/tramp          # TRAMP connection cache 
+
+# === Package and Directory Configuration ===
+/.emacs.desktop
+/.emacs.desktop.lock
+.elpa/          # Package directories
+.cask/          # Cask package manager files
+.projectile     # Projectile project cache
+.dir-locals.el  # Directory-local variables
