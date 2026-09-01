@@ -1,0 +1,5 @@
+import { createReadStream } from 'node:fs';
+
+
+    parse sorce blocks ```<name> \n\r```
+find openging and closiging text

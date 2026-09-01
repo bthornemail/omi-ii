@@ -1,13 +1,21 @@
 // import worklet from "./worklet";
+<<<<<<< HEAD
 // import setupScene from './componwnts/welcome.page';
 import SymbolTree from "symbol-tree";
+=======
+import setupScene from './componwnts/welcome.page';
+>>>>>>> origin/dev-mode
 
 document.querySelector<HTMLDivElement>('#app')!.innerHTML = `
 <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
+<<<<<<< HEAD
   <title>Omi-ii Portal</title>
+=======
+  <title>Remote Canvas Stream</title>
+>>>>>>> origin/dev-mode
   </style>
 </head>
 <body>
@@ -121,6 +129,7 @@ height="146"
 </html>
 `;
 
+<<<<<<< HEAD
 function init() {
     const [div, canvas, list, table, form, btn] = [
         document.querySelector<HTMLDivElement>('#root-element')!,
@@ -283,3 +292,6 @@ function tree(treeElement = document.querySelector<HTMLTableElement>('#root-tabl
     console.log(tree.firstChild(tree.firstChild(grandparent)) === a);
 
 }
+=======
+setupScene(document.querySelector<HTMLButtonElement>('#counter')!)
+>>>>>>> origin/dev-mode

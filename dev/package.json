@@ -3,8 +3,8 @@
     "name": "omi-dev",
     "scripts": {
         "start": "tsx src/main.ts",
-        "pre-repl": "tsx src/live.server.ts",
-        "repl": "tsx src/repl.ts"
+	"pre-repl": "node src/live.server.ts",
+        "repl": "node src/repl.ts"
     },
     "devDependencies": {
         "@testing-library/dom": "^10.4.1",

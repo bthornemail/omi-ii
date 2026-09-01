@@ -147,6 +147,10 @@ function match(symbol, value) {
 }
 `
 
+const re = new RegExp("ab+c");
+//Using the constructor function provides runtime compilation of the regular expression. Use the constructor function when you know the regular expression pattern will be changing, or you don't know the pattern and are getting it from another source, such as user input.
+// Note: In many cases, when trying match a special character, you can wrap it in a character class as an alternative to escaping, for example /a[*]b/.
+
     `
 const reflect = /([^"\.]+):\1/;
 const inflect = /(["\.]+):\1/;

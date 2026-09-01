@@ -1,4 +1,9 @@
 # Logs
+
+# Emacs 
+/#*#
+/*~
+
 logs
 *.log
 npm-debug.log*
