@@ -1,0 +1,143 @@
+#!/data/data/com.termux/files/usr/bin/env node
+import Repl from 'node:repl';
+import { JSDOM } from 'jsdom';
+import { createContext, runInContext } from 'node:vm';
+import { fileURLToPath } from 'node:url';
+import type { REPLServer } from 'node:repl';
+import { Worker, isMainThread, parentPort } from 'node:worker_threads';
+import { Buffer } from 'node:buffer';
+
+import isRecoverableError from './errors/isRecoverableError';
+export default class DevRepl {
+    recoverError = isRecoverableError;
+    repl: REPLServer;
+    dom: JSDOM;
+    loadDom() {
+        this.repl.context.JSDOM = JSDOM;
+        this.repl.context.dom = new JSDOM('<!DOCTYPE html><html><body></body></html>');
+        this.repl.context.window = this.repl.context.dom.window;
+        this.repl.context.document = this.repl.context.dom.window.document;
+        this.repl.setPrompt('jsdom-repl > ');
+    }
+    constructor() {
+        this.repl = Repl.start({ prompt: 'jsdom-repl > ', eval: myEval, writer: myWriter });
+
+    }
+};
+
+function initializeRepl(server) {
+    server.defineCommand('sayhello', {
+        help: 'Say hello',
+        action(name) {
+            this.clearBufferedCommand();
+            console.log(`Hello, ${name}!`);
+            this.displayPrompt();
+        },
+    });
+    server.defineCommand('reload', function reload() {
+        console.log('Goodbye!');
+        initializeContext();
+    });
+    server.defineCommand('toJson', function() {
+        const buf = Buffer.from([0x1, 0x2, 0x3, 0x4, 0x5]);
+        const json = JSON.stringify(buf);
+
+        console.log(json);
+        // Prints: {"type":"Buffer","data":[1,2,3,4,5]}
+
+        const copy = JSON.parse(json, (key, value) => {
+            return value && value.type === 'Buffer' ?
+                Buffer.from(value) :
+                value;
+        });
+
+        console.log(copy);
+        // Prints: <Buffer 01 02 03 04 05>
+    });
+}
+function initializeContext(context = {}) {
+    context.m = 'test';
+    const msg = 'message';
+    Object.defineProperty(context, 'msg', {
+        configurable: false,
+        enumerable: true,
+        value: msg,
+    });
+
+}
+function initializeMemory() {
+    const buf = Buffer.alloc(256);
+    for (let i = 0; i <= 255; i++) {
+        // 97 is the decimal ASCII value for 'a'.
+        buf[i] = i;
+    }
+
+    console.log(buf.subarray(1, 6).toString('binary'));
+    console.log(buf.subarray(-6, -1).toString('ucs2'));
+    // Prints: buffe
+    // (Equivalent to buf.subarray(0, 5).
+
+    console.log(buf.subarray(2, 6).toString('ucs2'));
+    console.log(buf.subarray(-6, -2).toString('ucs2'));
+    // Prints: buff
+    // (Equivalent to buf.subarray(0, 4).)
+
+    console.log(buf.subarray(2, 5).toString('ucs2'));
+    console.log(buf.subarray(-5, -2).toString('ucs2'));
+    // Prints: uff
+    // (Equivalent to buf.subarray(1, 4).)
+
+    const buf1 = Buffer.from([0x1, 0x2, 0x3, 0x4, 0x5, 0x6, 0x7, 0x8]);
+
+    console.log(buf1);
+    // Prints: <Buffer 01 02 03 04 05 06 07 08>
+
+    buf1.swap16();
+
+    console.log(buf1);
+    // Prints: <Buffer 02 01 04 03 06 05 08 07>
+    const buf2 = Buffer.from('This is little-endian UTF-16', 'utf16le');
+    buf2.swap16(); // Convert to big-endian UTF-16 text.
+
+    const buf4 = Buffer.from([0x1, 0x2, 0x3, 0x4, 0x5, 0x6, 0x7, 0x8]);
+
+    console.log(buf4);
+    // Prints: <Buffer 01 02 03 04 05 06 07 08>
+
+    buf4.swap32();
+
+    console.log(buf4);
+    // Prints: <Buffer 04 03 02 01 08 07 06 05>
+    const buf8 = Buffer.from([0x1, 0x2, 0x3, 0x4, 0x5, 0x6, 0x7, 0x8]);
+
+    console.log(buf8);
+    // Prints: <Buffer 01 02 03 04 05 06 07 08>
+
+    buf8.swap64();
+
+    console.log(buf8);
+    for (const value of buf.values()) {
+        console.log(value);
+
+    }
+    console.log(buf[0]);
+    console.log(Atomics.compareExchange(buf, 0, 97, 65));
+    console.log(buf[0]);
+    // Prints:
+    //   98
+    //   117
+    //   102
+    //   102
+    //   101
+    //   114
+
+};
+initializeContext(server.context);
+initializeRepl(server);
+initializeMemory();
+
+server.on('reset', initializeContext);
+server.on('exit', () => {
+    console.log('Received "exit" event from repl!');
+    process.exit();
+});	    
