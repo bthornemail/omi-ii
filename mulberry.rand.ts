@@ -1,10 +1,23 @@
-function mulberry32(a) {
-    return function() {
+function mneumonic(a, b, c) {
+    function metron() {
         a |= 0;
-        a = (a + 0x6d2b79f5) | 0;
+        a = (a + b) | 0;
         var t = Math.imul(a ^ (a >>> 15), 1 | a);
         t = (t + Math.imul(t ^ (t >>> 7), 61 | t)) ^ t;
-        return ((t ^ (t >>> 14)) >>> 0) / 4294967296;
+        return ((t ^ (t >>> 14)) >>> 0) / c;
+    };
+    return function(metric: number, size: number, width: number, height: number) {
+        for (let x = 0; x < width; x += size) {
+            // Create a new metric() for this column:
+            const meter = metron(metric);
+            // Increment the seed for next time:
+            metric++;
+
+            for (let y = 0; y < height; y += size) {
+                const pos = (y + size / 2) / height;
+                if (metron() < pos) return pos;
+            }
+        }
     };
 }
 
@@ -23,17 +36,6 @@ ctx.fillStyle = props.get('--pixel-gradient-color');
 
 let seed = props.get('--pixel-gradient-seed').value;
 
-for (let x = 0; x < bounds.width; x += size) {
-    // Create a new rand() for this column:
-    const rand = mulberry32(seed);
-    // Increment the seed for next time:
-    seed++;
-
-    for (let y = 0; y < bounds.height; y += size) {
-        const pos = (y + size / 2) / bounds.height;
-        if (rand() < pos) ctx.fillRect(x, y, size, size);
-    }
-}
 And here it is:
 
 Hello

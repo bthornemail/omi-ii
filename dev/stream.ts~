@@ -1,0 +1,10 @@
+const { Readable } = require('node:stream');
+const controller = new AbortController();
+const read = new Readable({
+    read(size) {
+	// ...
+    },
+    signal: controller.signal,
+});
+// Later, abort the operation closing the stream
+controller.abort();

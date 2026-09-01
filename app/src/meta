@@ -16,7 +16,6 @@ document.querySelector<HTMLDivElement>('#app')!.innerHTML = `
 <!-- Your native browser Canvas element -->
   <canvas id="root-canvas" width="400" height="300"></canvas>
 <div>
-<button id="root-button">click</button>
 <ul id="root-list"></ul>
 <table id="root-table"></table>
 <form id="root-form"></form>
@@ -112,8 +111,7 @@ document.querySelector<HTMLDivElement>('#app')!.innerHTML = `
     x="90"
     y="-65"
     width="128"
-height="146"
- id="view3d"
+    height="146"
     transform="rotate(45)"
     href="https://developer.mozilla.org/en-US/docs/Web/SVG/Reference/Element/image/mdn_logo_only_color.png" />
 </svg>
@@ -122,109 +120,21 @@ height="146"
 `;
 
 function init() {
-    const [div, canvas, list, table, form, btn] = [
+    const [div, canvas, list, table, form, svg] = [
         document.querySelector<HTMLDivElement>('#root-element')!,
         document.querySelector<HTMLCanvasElement>('#root-canvas')!,
         document.querySelector<HTMLUListElement>('#root-list')!,
         document.querySelector<HTMLTableElement>('#root-table')!,
         document.querySelector<HTMLFormElement>('#root-form')!,
-        document.querySelector<HTMLButtonElement>('#root-button')!
+        document.querySelector<SVGGeometryElement>('#counter')!
     ]
-    //    linkedList(list);
-    //  tree(table);
+    linkedList(list);
+    tree(table);
     div.innerText = "hello";
-    const elem = document.getElementById("view3d");
-
-    btn.addEventListener("click", handleClick);
-    window.addEventListener("deviceorientation", (e) => {
-        elem.style.transform = `rotateZ(${-e.alpha}deg) rotateX(${-e.beta}deg) rotateY(${e.gamma
-            }deg)`;
-    });
 
 }
 
 init();
-// convert a rotate3d axis-angle to deviceorientation angles
-function orient(aa) {
-    const x = aa.x,
-        y = aa.y,
-        z = aa.z,
-        a = aa.a,
-        c = Math.cos(aa.a),
-        s = Math.sin(aa.a),
-        t = 1 - c,
-        // axis-angle to rotation matrix
-        rm00 = c + x * x * t,
-        rm10 = z * s + y * x * t,
-        rm20 = -y * s + z * x * t,
-        rm01 = -z * s + x * y * t,
-        rm11 = c + y * y * t,
-        rm21 = x * s + z * y * t,
-        rm02 = y * s + x * z * t,
-        rm12 = -x * s + y * z * t,
-        rm22 = c + z * z * t,
-        TO_DEG = 180 / Math.PI,
-        ea = [],
-        n = Math.hypot(rm22, rm20);
-
-    // rotation matrix to Euler angles
-    ea[1] = Math.atan2(-rm21, n);
-
-    if (n > 0.001) {
-        ea[0] = Math.atan2(rm01, rm11);
-        ea[2] = Math.atan2(rm20, rm22);
-    } else {
-        ea[0] = 0;
-        ea[2] = (rm21 > 0 ? 1 : -1) * Math.atan2(-rm10, rm00);
-    }
-
-    return {
-        alpha: -ea[0] * TO_DEG - 180,
-        beta: -ea[1] * TO_DEG,
-        gamma: ea[2] * TO_DEG,
-    };
-}
-
-function handleClick() {
-    if (typeof DeviceMotionEvent.requestPermission === "function") {
-        // The API requires permission — request it
-        Promise.all([
-            DeviceMotionEvent.requestPermission(),
-            DeviceOrientationEvent.requestPermission(),
-        ]).then(([motionPermission, orientationPermission]) => {
-            if (
-                motionPermission === "granted" &&
-                orientationPermission === "granted"
-            ) {
-                window.addEventListener("devicemotion", handleMotion);
-                window.addEventListener("deviceorientation", handleOrientation);
-            }
-        });
-    } else {
-        // No permission needed, add event listeners directly
-        window.addEventListener("devicemotion", handleMotion);
-        window.addEventListener("deviceorientation", handleOrientation);
-    }
-}
-function handleOrientation(event) {
-    const absolute = event.absolute;
-    const alpha = event.alpha;
-    const beta = event.beta;
-    const gamma = event.gamma;
-
-    const div = document.querySelector<HTMLDivElement>('#root-element')!;
-    div.innerText += `${absolute}, ${alpha}, ${beta}, ${gamma}`;
-    // Do stuff with the new orientation data
-}
-function handleMotion(event) {
-    const acceleration = event.acceleration
-    const accelerationIncludingGravity = event.accelerationIncludingGravity
-    const rotationRate = event.rotationRate
-    const interval = event.interval
-
-    const div = document.querySelector<HTMLDivElement>('#root-element')!;
-    div.innerText += `${acceleration}, ${accelerationIncludingGravity}, ${rotationRate}, ${interval}`;
-}
 function myRect(x, y, w, h, message, context) {
     this.message = message;
 

@@ -5,6 +5,7 @@ import { createContext, runInContext } from 'node:vm';
 import { fileURLToPath } from 'node:url';
 import type { REPLServer } from 'node:repl';
 import { Worker, isMainThread, parentPort } from 'node:worker_threads';
+import SymbolTree from "symbol-tree";
 
 function isRecoverableError(error) {
     if (error.name === 'SyntaxError') {
@@ -37,3 +38,16 @@ server.context.JSDOM = JSDOM;
 server.context.dom = new JSDOM('<!DOCTYPE html><html><body></body></html>');
 server.context.window = server.context.dom.window;
 server.context.document = server.context.dom.window.document;
+server.context.tree = new SymbolTree(); 
+server.defineCommand('sayhello', {
+  help: 'Say hello',
+  action(name) {
+    this.clearBufferedCommand();
+    console.log(`Hello, ${name}!`);
+    this.displayPrompt();
+  },
+});
+server.defineCommand('saybye', function saybye() {
+  console.log('Goodbye!');
+  this.close();
+});

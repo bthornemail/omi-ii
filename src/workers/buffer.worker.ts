@@ -1,0 +1,34 @@
+import { Worker, isMainThread, parentPort } from 'node:worker_threads';
+
+export const bufferWorker = new Worker(`
+const { parentPort } = require('node:worker_threads');
+
+// Worker-side context (pure Buffers only)
+const context = {
+coordinate: Buffer.allocUnsafe(8).fill(0),
+buffer: Buffer.allocUnsafe(256).fill(0),
+};
+function rotl(buf, n) {
+return Buffer.from(buf.map((_, i) => buf[(i + n) % buf.length]));
+}
+
+function rotr(buf, n) {
+return Buffer.from(buf.map((_, i) => buf[(i - n + buf.length) % buf.length]));
+}
+
+function xor(a, b) {
+return Buffer.from(a.map((v, i) => v ^ b[i]));
+}
+
+function delta(buf, C) {
+return xor(xor(xor(rotl(buf, 1), rotl(buf, 3)), rotr(buf, 2)), C);
+}
+parentPort.on('message', (chunk) => {
+if (chunk instanceof Uint8Array) {
+const input = Buffer.from(chunk);
+// Apply protocol operations here (rotl, rotr, xor, C)
+const result = delta(context.buffer,context.coordinate); // placeholder
+parentPort.postMessage(delta(result, chunk));
+}
+});
+`, { eval: true });

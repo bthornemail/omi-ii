@@ -1,6 +1,7 @@
 import { Worker, isMainThread, parentPort } from 'node:worker_threads';
 import REPL from "./tools/repl";
 // import { fileURLToPath } from 'node:url';
+import repl from 'node:repl';
 // import process from 'node:process';
 // import type { REPLServer } from 'node:repl';
 
@@ -34,14 +35,15 @@ export default function startMain(options: { repls?: REPL[] } = {}) {
         });
 
     } else {
-        const worker = new Worker(new URL(import.meta.url));
+        const worker1 = new Worker(new URL(import.meta.url));
         if (options.repls && options.repls[0]) {
             const Repl = options.repls[0];
             Repl.init();
         }
-        worker.once('message', (message) => {
+        worker1.once('message', (message) => {
             console.log(message);  // Prints 'Hello, world!'.
         });
-        worker.postMessage('Hello, world!');
+        worker1.postMessage('Hello, world!');
     }
 };
+if (import.meta.main) startMain();
