@@ -1,0 +1,34 @@
+// register-hooks.js
+import { registerHooks } from 'node:module';
+
+registerHooks({
+    resolve(specifier, context, nextResolve) {
+        // Intercept and manipulate how files are found
+	
+//      console.log(`Resolving: ${specifier}`);
+//	console.log(specifier)
+//	console.log(context)
+	
+//	if (specifier === "metron") throw new Error("found")
+	if (specifier === 'metron') {
+	    return {
+		shortCircuit: true,
+		url: 'file:///path/to/virtual.js'
+	    };
+	}
+        return nextResolve(specifier, context);
+    },
+    load(url, context, nextLoad) {
+        // Intercept and modify source code contents
+        console.log(`Loading: ${url}`);
+        console.log(`Loading: ${url} context: ${context}`);
+        console.log(context);
+	//	if (url === 'file:///path/to/virtual.js') throw new Error("file:///path/to/virtual.js")
+	
+  // Modify source code strings here if desired
+	return {
+	    shortCircuit: true,
+	    url: 'file:///path/to/virtual.js'
+	};
+    }
+});

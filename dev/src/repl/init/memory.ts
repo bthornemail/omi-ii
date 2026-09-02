@@ -22,7 +22,8 @@ function buildManifest(lines: string[]) {
     });
     return manifest;
 }
-buildManifest([AZ, az, base10);
+
+buildManifest([AZ, az, base10]);
 function popcount(n) {
     let count = 0;
     while (n > 0) {
@@ -50,11 +51,9 @@ export default function initializeMemory(record: RECORD, manifest?: MANIFEST, kn
     manifest ? null :
         manifest = {};
 
-    const memory = Buffer.alloc(buffer.length * buffer.BYTES_PER_ELEMENT);
+    const memory = Buffer.alloc(256);
 
-    for (const v in {}.values(){
-    }
     for (let i = 0; i <= 255; i++) {
-        memory[i] = buffer[i];
+        memory[i] = i;
     }
 };

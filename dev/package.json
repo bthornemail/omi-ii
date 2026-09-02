@@ -2,9 +2,13 @@
     "type": "module",
     "name": "omi-dev",
     "scripts": {
-        "start": "tsx src/main.ts",
-	"pre-repl": "node src/live.server.ts",
-        "repl": "node src/repl.ts"
+        "start": "tsx --import ./src/register-hooks.js src/main.ts",
+	"pre-repl": "tsx src/net/live.server.ts",
+        "repl": "tsx --import ./src/register-hooks.js src/repl/index.ts",
+	"pre-w": "tsx src/net/live.server.ts",
+        "w": "tsx --watch  src/main.ts",
+	"pre-r": "tsx src/net/live.server.ts",
+        "r": "tsx --watch  --import ./src/register-hooks.ts src/repl/index.ts"
     },
     "devDependencies": {
         "@testing-library/dom": "^10.4.1",
@@ -19,7 +23,6 @@
     },
     "dependencies": {
         "live-server": "^1.2.2",
-        "symbol-tree": "^3.2.4",
         "ws": "^8.21.3"
     }
 }
